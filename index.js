@@ -62,13 +62,92 @@ exports.LiberalizeNodeJs = class {
                     case "source":
                         validatedRequest["source"] = `${requestBody["source"]}`
                     case "paymentId":
-                        validatedRequest["paymentId"] = `${requestBody["paymentId"]}`
+                        paymentId = `${requestBody["paymentId"]}`
                     default:
                         break;
                 }
             }
             var response = await axios.post(
                 `${this.paymentApi}/${paymentId}/authorizations`,
+                validatedRequest,
+                {
+                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                }
+            )
+            return response.data
+        } catch (err) {
+            return err
+        }
+    }
+
+    async capturePayment(requestBody) {
+        let validatedRequest = {};
+        let paymentId = ""
+        try {
+            for (const property in requestBody) {
+                switch (property) {
+                    case "amount":
+                        validatedRequest["amount"] = `${requestBody["amount"]}`
+                    case "paymentId":
+                        paymentId = `${requestBody["paymentId"]}`
+                    default:
+                        break;
+                }
+            }
+            var response = await axios.post(
+                `${this.paymentApi}/${paymentId}/captures`,
+                validatedRequest,
+                {
+                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                }
+            )
+            return response.data
+        } catch (err) {
+            return err
+        }
+    }
+
+    async refundPayment(requestBody) {
+        let validatedRequest = {};
+        let paymentId = ""
+        try {
+            for (const property in requestBody) {
+                switch (property) {
+                    case "amount":
+                        validatedRequest["amount"] = `${requestBody["amount"]}`
+                    case "paymentId":
+                        paymentId = `${requestBody["paymentId"]}`
+                    default:
+                        break;
+                }
+            }
+            var response = await axios.post(
+                `${this.paymentApi}/${paymentId}/refunds`,
+                validatedRequest,
+                {
+                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                }
+            )
+            return response.data
+        } catch (err) {
+            return err
+        }
+    }
+
+    async voidPayment(requestBody) {
+        let validatedRequest = {};
+        let paymentId = ""
+        try {
+            for (const property in requestBody) {
+                switch (property) {
+                    case "paymentId":
+                        paymentId = `${requestBody["paymentId"]}`
+                    default:
+                        break;
+                }
+            }
+            var response = await axios.post(
+                `${this.paymentApi}/${paymentId}/voids`,
                 validatedRequest,
                 {
                     headers: { "Authorization": `Basic ${this.privateKey}`}
