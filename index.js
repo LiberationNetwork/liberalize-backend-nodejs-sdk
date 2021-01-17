@@ -52,4 +52,31 @@ exports.LiberalizeNodeJs = class {
             return err
         }
     }
+
+    async authorizePayment(requestBody) {
+        let validatedRequest = {};
+        let paymentId = ""
+        try {
+            for (const property in requestBody) {
+                switch (property) {
+                    case "source":
+                        validatedRequest["source"] = `${requestBody["source"]}`
+                    case "paymentId":
+                        validatedRequest["paymentId"] = `${requestBody["paymentId"]}`
+                    default:
+                        break;
+                }
+            }
+            var response = await axios.post(
+                `${this.paymentApi}/${paymentId}/authorizations`,
+                validatedRequest,
+                {
+                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                }
+            )
+            return response.data
+        } catch (err) {
+            return err
+        }
+    }
 }
