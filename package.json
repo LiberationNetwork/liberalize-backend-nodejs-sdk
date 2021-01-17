@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Liberalize Javascript Library for NodeJS Backend Framework",
   "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "test"
   },
@@ -16,12 +20,9 @@
     "javascript"
   ],
   "author": "Kenneth",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/LiberationNetwork/liberalize-backend-nodejs-sdk/issues"
   },
-  "homepage": "https://github.com/LiberationNetwork/liberalize-backend-nodejs-sdk#readme",
-  "dependencies": {
-    "axios": "^0.19.2"
-  }
+  "homepage": "https://github.com/LiberationNetwork/liberalize-backend-nodejs-sdk#readme"
 }
