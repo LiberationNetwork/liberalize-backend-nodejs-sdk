@@ -60,7 +60,7 @@ exports.LiberalizeNodeJs = class {
             for (const property in requestBody) {
                 switch (property) {
                     case "source":
-                        validatedRequest["source"] = `${requestBody["source"]}`
+                        validatedRequest["source"] = `lib:customer:paymentMethods/${requestBody["source"]}`
                     case "paymentId":
                         paymentId = `${requestBody["paymentId"]}`
                     default:
