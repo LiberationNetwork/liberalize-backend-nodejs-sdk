@@ -37,8 +37,6 @@ exports.LiberalizeNodeJs = class {
                     default:
                         validatedRequest[property] = requestBody[property]
                         break;
-                    default:
-                        break;
                 }
             }
             var response = await axios.post(
