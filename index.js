@@ -34,8 +34,9 @@ exports.LiberalizeNodeJs = class {
                     case "amount":
                         validatedRequest["amount"] = parseInt(requestBody["amount"].toString())
                         break;
-                    case "currency":
-                        validatedRequest["currency"] = `${requestBody["currency"]}`
+                    default:
+                        validatedRequest[property] = requestBody[property]
+                        break;
                     default:
                         break;
                 }
