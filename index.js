@@ -26,7 +26,7 @@ exports.LiberalizeNodeJs = class {
         this.privateKey = base64data;
     }
 
-    async createPayment(requestBody) {
+    async createPayment(requestBody, libService="elements") {
         let validatedRequest = {};
         try {
             for (const property in requestBody) {
@@ -43,7 +43,11 @@ exports.LiberalizeNodeJs = class {
                 `${this.paymentApi}`,
                 validatedRequest,
                 {
-                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${this.privateKey}`,
+                        "x-lib-pos-type": libService
+                    }
                 }
             )
             return response.data
@@ -52,14 +56,19 @@ exports.LiberalizeNodeJs = class {
         }
     }
 
-    async authorizePayment(requestBody) {
+    async authorizePayment(requestBody, libService="elements") {
         let validatedRequest = {};
         let paymentId = ""
         try {
             for (const property in requestBody) {
                 switch (property) {
                     case "source":
-                        validatedRequest["source"] = `lib:customer:paymentMethods/${requestBody["source"]}`
+                        const sourceArr = requestBody["source"].split('-')
+                        if (sourceArr[0] === 'card') {
+                            validatedRequest["source"] = `lib:customer:paymentMethods/${requestBody["source"]}`
+                        } else {
+                            validatedRequest["source"] = requestBody["source"]
+                        }
                     case "paymentId":
                         paymentId = `${requestBody["paymentId"]}`
                     default:
@@ -70,7 +79,11 @@ exports.LiberalizeNodeJs = class {
                 `${this.paymentApi}/${paymentId}/authorizations`,
                 validatedRequest,
                 {
-                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${this.privateKey}`,
+                        "x-lib-pos-type": libService
+                    }
                 }
             )
             return response.data
@@ -79,7 +92,7 @@ exports.LiberalizeNodeJs = class {
         }
     }
 
-    async capturePayment(requestBody) {
+    async capturePayment(requestBody, libService="elements") {
         let validatedRequest = {};
         let paymentId = ""
         try {
@@ -97,7 +110,11 @@ exports.LiberalizeNodeJs = class {
                 `${this.paymentApi}/${paymentId}/captures`,
                 validatedRequest,
                 {
-                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${this.privateKey}`,
+                        "x-lib-pos-type": libService
+                    }
                 }
             )
             return response.data
@@ -106,7 +123,7 @@ exports.LiberalizeNodeJs = class {
         }
     }
 
-    async refundPayment(requestBody) {
+    async refundPayment(requestBody, libService="elements") {
         let validatedRequest = {};
         let paymentId = ""
         try {
@@ -124,7 +141,11 @@ exports.LiberalizeNodeJs = class {
                 `${this.paymentApi}/${paymentId}/refunds`,
                 validatedRequest,
                 {
-                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${this.privateKey}`,
+                        "x-lib-pos-type": libService
+                    }
                 }
             )
             return response.data
@@ -133,7 +154,7 @@ exports.LiberalizeNodeJs = class {
         }
     }
 
-    async voidPayment(requestBody) {
+    async voidPayment(requestBody, libService="elements") {
         let validatedRequest = {};
         let paymentId = ""
         try {
@@ -149,7 +170,11 @@ exports.LiberalizeNodeJs = class {
                 `${this.paymentApi}/${paymentId}/voids`,
                 validatedRequest,
                 {
-                    headers: { "Authorization": `Basic ${this.privateKey}`}
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${this.privateKey}`,
+                        "x-lib-pos-type": libService
+                    }
                 }
             )
             return response.data
