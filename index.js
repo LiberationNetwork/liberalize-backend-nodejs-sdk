@@ -182,4 +182,22 @@ exports.LiberalizeNodeJs = class {
             return err
         }
     }
+
+    async getPayment(paymentId, libService="elements") {
+        try {
+            var response = await axios.get(
+                `${this.paymentApi}/${paymentId}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${this.privateKey}`,
+                        "x-lib-pos-type": libService
+                    }
+                }
+            )
+            return response.data
+        } catch (err) {
+            return err
+        }
+    }
 }
