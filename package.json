@@ -1,6 +1,6 @@
 {
   "name": "liberalize-backend-nodejs-sdk",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Liberalize Javascript Library for NodeJS Backend Framework",
   "main": "index.js",
   "dependencies": {
