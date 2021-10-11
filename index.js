@@ -34,6 +34,14 @@ exports.LiberalizeNodeJs = class {
                     case "amount":
                         validatedRequest["amount"] = parseInt(requestBody["amount"].toString())
                         break;
+                    case "source":
+                        const sourceArr = requestBody["source"].split('-')
+                        if (sourceArr[0] === 'card') {
+                            validatedRequest["source"] = `lib:customer:paymentMethods/${requestBody["source"]}`
+                        } else {
+                            validatedRequest["source"] = requestBody["source"]
+                        }
+                        break;
                     default:
                         validatedRequest[property] = requestBody[property]
                         break;
