@@ -80,6 +80,7 @@ exports.LiberalizeNodeJs = class {
                     case "paymentId":
                         paymentId = `${requestBody["paymentId"]}`
                     default:
+                        validatedRequest[property] = requestBody[property]
                         break;
                 }
             }
