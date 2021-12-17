@@ -108,7 +108,7 @@ exports.LiberalizeNodeJs = class {
             for (const property in requestBody) {
                 switch (property) {
                     case "amount":
-                        validatedRequest["amount"] = `${requestBody["amount"]}`
+                        validatedRequest["amount"] = parseInt(requestBody["amount"].toString())
                     case "paymentId":
                         paymentId = `${requestBody["paymentId"]}`
                     default:
@@ -139,7 +139,7 @@ exports.LiberalizeNodeJs = class {
             for (const property in requestBody) {
                 switch (property) {
                     case "amount":
-                        validatedRequest["amount"] = `${requestBody["amount"]}`
+                        validatedRequest["amount"] = parseInt(requestBody["amount"].toString())
                     case "paymentId":
                         paymentId = `${requestBody["paymentId"]}`
                     default:
