@@ -1,9 +1,9 @@
 const axios = require('axios')
 
 exports.LiberalizeNodeJs = class {
-    constructor(privateKey, environment="prod") {
+    constructor(privateKey, environment="production") {
         switch (environment) {
-            case "prod":
+            case "production":
                 this.paymentApi = "https://payment.api.liberalize.io/payments"
                 this.customerApi = "https://customer.api.liberalize.io"
                 break;
